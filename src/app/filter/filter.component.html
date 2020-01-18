@@ -1,0 +1,76 @@
+<p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" style="text-align: center;">
+      Please be informed that, problem filter works only for <a href="https://codeforces.com/" class="alert-link"
+        target="_blank">CodeForces</a> Online Judge platform.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="panel">
+      <div class="panel-body">
+        <div class="ui-fluid">
+          <div class="ui-g">
+            <div class="ui-g-4">
+              <p-multiSelect [options]="Category" [maxSelectedLabels]="4" [(ngModel)]="selectedCategories"
+                defaultLabel="Select Problem Categories">
+              </p-multiSelect>
+            </div>
+            <div class="ui-g-1">
+              <button pButton type="button" label="Filter" class="ui-button-raised"
+                [disabled]="selectedCategories.length == 0" (click)="getFilteredProbs()"></button>
+            </div>
+            <div class="ui-g-1">
+              <button pButton type="button" label="Reset" class="ui-button-raised ui-button-danger"
+                [disabled]="selectedCategories.length == 0" (click)="reset()"></button>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <p-progressBar mode="indeterminate" [style]="{'height': '6px'}" [hidden]="isHiddenProgressBar"></p-progressBar>
+        <div class="ui-fluid" [hidden]="probs.length > 0">
+          <div class="ui-g">
+            <div class="ui-g-5"></div>
+            <div class="ui-g-1">
+              <img src="../../assets/img/empty.svg">
+            </div>
+          </div>
+          <div class="ui-g">
+            <div class="ui-g-5"></div>
+            <div class="ui-g-7">Table Is Empty Right Now</div>
+          </div>
+        </div>
+        <div class="table-responsive" [hidden]="probs.length == 0">
+          <table>
+            <thead>
+              <tr>
+                <th>Problem Name</th>
+                <th style="cursor: pointer;" (click)="sortProbRating()"
+                  [ngClass]="ratingOrder != 0 ? 'darkGray' : null">Rating <span><i
+                      class="{{sortIconRating}}"></i></span></th>
+                <th style="cursor: pointer;" (click)="sortProbPoints()"
+                  [ngClass]="pointsOrder != 0 ? 'darkGray' : null">Points <span><i
+                      class="{{sortIconPoints}}"></i></span></th>
+                <th>Tags</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let prob of probs" style="height: 3px;">
+                <td><a href="https://codeforces.com/contest/{{prob.contestId}}/problem/{{prob.index}}"
+                    target="_blank">{{prob.index}}. {{ prob.name }}</a></td>
+                <td><strong>{{prob.rating}}</strong></td>
+                <td><strong>{{prob.points}}</strong></td>
+                <td>
+                  <span class="badge badge-info" style="margin-right:4px;"
+                    *ngFor="let tag of prob.tags"><strong>{{tag}}</strong></span>
+                  &nbsp;
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

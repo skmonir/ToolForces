@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Contest Name</th>
+          <th>Judge</th>
+          <th>Start Time</th>
+          <th>Duration</th>
+          <th>Time Left</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contest of contests" style="height: 3px;">
+          <td [ngClass]="isRunning(contest.startTime) ? 'running' : null"><a
+              href="{{getContestLink(contest.platform, contest.url)}}" target="_blank">{{contest.name}}</a></td>
+          <td [ngClass]="isRunning(contest.startTime) ? 'running' : null"><a href="{{platformLink[contest.platform]}}"
+              target="_blank"><img pTooltip="{{contest.platform}}" tooltipPosition="top"
+                src="../../assets/img/{{contest.platform}}.png" height="20px" width="20px"></a></td>
+          <td [ngClass]="isRunning(contest.startTime) ? 'running' : null">{{getStartTime(contest.startTime)}}</td>
+          <td [ngClass]="isRunning(contest.startTime) ? 'running' : null">
+            {{getDuration(contest.startTime, contest.endTime)}}</td>
+          <td [ngClass]="isRunning(contest.startTime) ? 'running' : null">
+            <countdown [config]="{leftTime: contest.timeLeft}">$!d!:$!h!:$!m!:$!s!</countdown>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

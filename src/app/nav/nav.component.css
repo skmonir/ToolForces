@@ -1,0 +1,20 @@
+.example-action-button {
+  margin-bottom: 8px;
+}
+
+.mynavbar {
+  /* background: #3f51b5; */
+  /* background: #303030; */
+  /* box-shadow: 0 1px 4px rgba(0,0,0,.15); */
+  /* font-family: consolas; */
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px, rgba(0, 0, 0, 0.12) 0px 0px 2px;
+}
+
+.nav-menu {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.nav-link {
+  color: #212529;
+}

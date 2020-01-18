@@ -1,0 +1,33 @@
+table {
+  font-family: consolas;
+  border-collapse: collapse;
+  width: 100%;
+  background: #ffffff;
+}
+
+td {
+  font-size: 14px;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+th,
+td {
+  padding: 3px;
+  text-align: center;
+}
+
+table,
+td,
+th {
+  border: 1px solid;
+  border-width: 0.5px;
+  border-style: solid;
+  border-color: #c9c9c9;
+}
+
+.darkGray {
+    background-color: #bbb0b0;
+}
