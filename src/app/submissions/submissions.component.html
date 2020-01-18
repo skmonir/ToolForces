@@ -1,0 +1,124 @@
+<p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
+<div class="row">
+  <div class="col-md-3">
+    <p-fieldset legend="User Handles" [toggleable]="true">
+      <div class="ui-fluid">
+        <div class="ui-g">
+          <div class="ui-g-12">
+            <p-multiSelect [options]="platforms" [maxSelectedLabels]="4" [(ngModel)]="selectedPlatforms"
+              defaultLabel="Select Online Judge Platforms" [filter]="false">
+            </p-multiSelect>
+          </div>
+        </div>
+      </div>
+      <div class="ui-fluid" *ngFor="let platform of selectedPlatforms">
+        <div class="ui-g">
+          <div class="ui-g-3">
+            <img src="../../../assets/img/{{platform.toLowerCase()}}.png" height="30px" width="30px">
+          </div>
+          <div class="ui-g-9">
+            <p-autoComplete [(ngModel)]="dataModel[platform]" [suggestions]="suggestedHandles"
+              (completeMethod)="filterHandle($event)" [size]="25"
+              placeholder="Enter User {{platform == 'UVa' ? 'ID' : 'Handle'}}" [minLength]="1">
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="ui-fluid">
+        <div class="ui-g">
+          <div class="ui-g-6">
+            <button pButton type="button" label="Submissions" class="ui-button-raised" (click)="showSubmissions()"
+              [disabled]="disableSubsBtn()"></button>
+          </div>
+          <div class="ui-g-6">
+            <button pButton type="button" label="Reset" class="ui-button-raised ui-button-danger" (click)="reset()"
+              [disabled]="disableResetBtn()"></button>
+          </div>
+        </div>
+      </div>
+    </p-fieldset>
+    <hr>
+    <div class="panel">
+      <div class="panel-body">
+        <p-chart type="doughnut" [data]="Stat_Pie_Chart_Data_Show" width="100%" height="300px" [responsive]="true"
+          [options]="Stat_Pie_Chart_Options"></p-chart>
+        <hr>
+        <div class="ui-g">
+          <div class="ui-g-9">
+            <span><i class="fas fa-check"></i></span>&nbsp; Solved Problems
+          </div>
+          <div class="ui-g-3">
+            <span class="badge badge-success"><strong>{{acceptedList.length}}</strong></span>
+          </div>
+        </div>
+        <div class="ui-g">
+          <div class="ui-g-9">
+            <span><i class="fas fa-list-ul"></i></span>&nbsp; Total Submissions
+          </div>
+          <div class="ui-g-3">
+            <span class="badge badge-info"><strong>{{submissions.length}}</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <div [hidden]="isNoticeHidden" class="alert alert-success alert-dismissible fade show" role="alert"
+      style="text-align: center;">
+      Submission history of last <strong>30 days</strong> will be displayed for the selected Online Judge platforms.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}" [hidden]="isHiddenProgressBar"></p-progressBar>
+    <div class="panel">
+      <div class="panel-body">
+        <div [hidden]="subs.length == 0 && isFilterHidden">
+          <p-dropdown [options]="verdicts" [(ngModel)]="selectedVerdict" placeholder="Filter by verdict"
+            optionLabel="verdict" (ngModelChange)="applyVerdicFilter($event)"></p-dropdown>
+          <hr>
+        </div>
+        <div class="ui-fluid" [hidden]="subs.length > 0">
+          <div class="ui-g">
+            <div class="ui-g-5"></div>
+            <div class="ui-g-1">
+              <img src="../../assets/img/empty.svg">
+            </div>
+          </div>
+          <div class="ui-g">
+            <div class="ui-g-5"></div>
+            <div class="ui-g-7">Table Is Empty Right Now</div>
+          </div>
+        </div>
+        <div class="table-responsive" [hidden]="subs.length == 0">
+          <table>
+            <thead>
+              <tr>
+                <th>Problem</th>
+                <th>Where</th>
+                <th>When</th>
+                <th>Language</th>
+                <th>Verdict</th>
+                <th>Time</th>
+                <th>Memory</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sub of subs" style="height: 3px;">
+                <td><a href="{{sub.url}}" target="_blank">{{sub.problem}}</a></td>
+                <td><img src="../../assets/img/{{sub.where}}.png" width="20px" height="20px"></td>
+                <td>{{sub.when}}</td>
+                <td>{{sub.language}}</td>
+                <td pTooltip="{{sub.verdictTooltip}}" [ngClass]="sub.verdict == 'AC' ? 'accepted' : 'rejected'">
+                  <strong>{{sub.verdict}}</strong></td>
+                <td>{{sub.time}}</td>
+                <td>{{sub.memory}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
