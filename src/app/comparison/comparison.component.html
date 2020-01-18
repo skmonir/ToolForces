@@ -1,0 +1,123 @@
+<p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
+<div class="row">
+  <div class="col-md-3">
+    <p-fieldset legend="User Handles" [toggleable]="true">
+      <!-- <div class="ui-fluid">
+        <div class="ui-g">
+          <div class="ui-g-12">
+            <p-multiSelect [options]="platforms" [(ngModel)]="selectedPlatforms" defaultLabel="Select Platforms">
+            </p-multiSelect>
+          </div>
+        </div>
+      </div> -->
+      <div class="ui-fluid">
+        <div class="ui-g">
+          <div class="ui-g-6">
+            <h4>1st User</h4>
+          </div>
+          <div class="ui-g-6">
+            <h4>2nd User</h4>
+          </div>
+        </div>
+      </div>
+      <div class="ui-fluid">
+        <div class="ui-g">
+          <div class="ui-g-6">
+            <p-autoComplete pTooltip="Enter CF Handle" tooltipPosition="top" [(ngModel)]="cf1"
+              [suggestions]="suggestedHandles" (completeMethod)="filterHandle($event)" [size]="25"
+              placeholder="Required" [minLength]="1">
+            </p-autoComplete>
+          </div>
+          <div class="ui-g-6">
+            <p-autoComplete pTooltip="Enter CF Handle" tooltipPosition="top" [(ngModel)]="cf2"
+              [suggestions]="suggestedHandles" (completeMethod)="filterHandle($event)" [size]="25"
+              placeholder="Required" [minLength]="1">
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="ui-fluid">
+        <div class="ui-g">
+          <div class="ui-g-6">
+            <button pButton type="button" label="Compare" icon="pi pi-check" class="ui-button-raised"
+              [disabled]="disableCompareBtn()" (click)="showComparison()"></button>
+          </div>
+          <div class="ui-g-6">
+            <button pButton type="button" label="Reset" icon="pi pi-times" class="ui-button-raised ui-button-danger"
+              [disabled]="disableResetBtn()" (click)="reset()"></button>
+          </div>
+        </div>
+      </div>
+    </p-fieldset>
+  </div>
+
+  <div class="col-md-9">
+    <div class="panel">
+      <div class="ui-g">
+        <div class="ui-g-10">
+          <div class="panel-heading" style="text-align: center;">
+            <span>
+              <h6 id="cf_graph_rank_1"></h6>
+            </span>
+            <span>
+              <h4 id="cf_graph_title_1" (mouseenter)="cfone.toggle($event)" style="cursor: pointer;"></h4>
+            </span>
+            <span>
+              <h4 id="cf_graph_title_vs"></h4>
+            </span>
+            <span>
+              <h6 id="cf_graph_rank_2"></h6>
+            </span>
+            <span>
+              <h4 id="cf_graph_title_2" (mouseenter)="cftwo.toggle($event)" style="cursor: pointer;"></h4>
+            </span>
+          </div>
+        </div>
+        <div class="ui-g-2">
+            <button [hidden]="!isDataReady" type="button" class="btn btn-outline-success btn-sm" (click)="showContestsTable()"><span><i class="fas fa-table"></i></span> Show Contests</button>
+        </div>
+      </div>
+      <div class="panel-body" id="CF_Line_Chart">
+        <p-chart type="line" [data]="CF_Line_Chart_Data_Show" width="100%" height="490px" [responsive]="true"
+          [options]="CF_Line_Chart_Options"></p-chart>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-overlayPanel #cfone [showTransitionOptions]="'800ms'" [showCloseIcon]="true">
+  <div class="ui-fluid">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <img class="img-responsive img-thumbnail" src="{{CF_USER_INFO[0].titlePhoto}}" width="150px">
+      </div>
+    </div>
+  </div>
+  <div class="ui-fluid">
+    <div class="ui-g">
+      <p><span class="fas fa-chart-line"></span>&nbsp; <strong>{{CF_USER_INFO[0].rating}}</strong></p>
+    </div>
+    <div class="ui-g">
+      <p><span class="fa fa-globe"></span>&nbsp; {{CF_USER_INFO[0].country}}</p>
+    </div>
+  </div>
+</p-overlayPanel>
+
+<p-overlayPanel #cftwo [showTransitionOptions]="'800ms'" [showCloseIcon]="true">
+  <div class="ui-fluid">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <img class="img-responsive img-thumbnail" src="{{CF_USER_INFO[1].titlePhoto}}" width="150px">
+      </div>
+    </div>
+  </div>
+  <div class="ui-fluid">
+    <div class="ui-g">
+      <p><span class="fas fa-chart-line"></span>&nbsp; <strong>{{CF_USER_INFO[1].rating}}</strong></p>
+    </div>
+    <div class="ui-g">
+      <p><span class="fa fa-globe"></span>&nbsp; {{CF_USER_INFO[1].country}}</p>
+    </div>
+  </div>
+</p-overlayPanel>

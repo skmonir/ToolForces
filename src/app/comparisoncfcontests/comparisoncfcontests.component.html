@@ -1,0 +1,24 @@
+<p-table [value]="CF_Table_Data_Show">
+  <ng-template pTemplate="header">
+    <tr>
+      <th colspan="2" style="width:20%">{{user1}}</th>
+      <th rowspan="2" style="width:60%">Contest Name</th>
+      <th colspan="2" style="width:20%">{{user2}}</th>
+    </tr>
+    <tr>
+      <th>Rating</th>
+      <th>Rank</th>
+      <th>Rank</th>
+      <th>Rating</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-yal>
+    <tr>
+      <td>{{yal.rating1}}</td>
+      <td>{{yal.rank1}}</td>
+      <td><a href="http://codeforces.com/contest/{{yal.contestId}}" target="_blank">{{yal.contestName}}</a></td>
+      <td>{{yal.rank2}}</td>
+      <td>{{yal.rating2}}</td>
+    </tr>
+  </ng-template>
+</p-table>
