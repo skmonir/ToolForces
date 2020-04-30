@@ -27,7 +27,7 @@
     "cheerio": "^1.0.0-rc.3",
     "core-js": "^2.6.11",
     "express": "^4.17.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "ngx-countdown": "^3.2.0",
     "popper.js": "^1.16.0",
     "primeicons": "^1.0.0",
